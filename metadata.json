@@ -1,0 +1,6 @@
+{
+  "name": "Generative AI Explorer",
+  "description": "Aplikasi edukasi interaktif Generative AI untuk siswa SMA kelas 10, mencakup konsep dasar, tipe AI, simulasi cara kerja, prompt engineering lab, etika, dan tantangan kuis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
