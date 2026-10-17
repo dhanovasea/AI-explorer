@@ -15,7 +15,8 @@ import {
   Code2, 
   ShieldAlert, 
   Trophy,
-  RotateCcw
+  RotateCcw,
+  Rocket
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -123,6 +124,14 @@ export const Dashboard: React.FC = () => {
                 <span>{completedCount === 0 ? 'Mulai Eksplorasi' : `Lanjutkan Modul ${nextModuleId}`}</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
+
+              <button
+                onClick={() => setActiveView('pbl')}
+                className="flex items-center gap-2 rounded-xl border border-cyan-500/40 bg-cyan-950/40 px-4 py-2.5 text-sm font-semibold text-cyan-300 hover:bg-cyan-900/40 transition whitespace-nowrap"
+              >
+                <Rocket className="h-4 w-4" />
+                <span>Aktivitas PBL & Publikasi</span>
+              </button>
             </div>
           </div>
 
@@ -189,10 +198,10 @@ export const Dashboard: React.FC = () => {
             <Award className="h-4 w-4 text-purple-400" />
           </div>
           <div className="text-3xl font-bold tracking-tight text-purple-400 font-display tabular-nums">
-            {profile.badges.length} <span className="text-base font-normal text-slate-400">/ 4</span>
+            {profile.badges.length} <span className="text-base font-normal text-slate-400">/ {badges.length}</span>
           </div>
           <p className="text-xs text-slate-400">
-            Buka gelar AI Beginner hingga Generative AI Master.
+            Buka gelar AI Beginner hingga PBL Innovator.
           </p>
         </div>
 
@@ -209,6 +218,29 @@ export const Dashboard: React.FC = () => {
             {profile.quizCompleted ? 'Selesai diuji di Modul 6' : 'Ikuti kuis 10 soal di Modul 6'}
           </p>
         </div>
+      </div>
+
+      {/* Featured PBL Banner */}
+      <div className="rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-cyan-950/40 via-slate-900 to-purple-950/30 p-6 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 shadow-lg">
+        <div className="space-y-1.5 max-w-2xl">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-400">
+            <Rocket className="h-4 w-4" />
+            <span>Problem-Based Learning (PBL) & Publikasi Karya Siswa</span>
+          </div>
+          <h3 className="text-lg font-bold text-white font-display">
+            Selesaikan Masalah Nyata Sekolah & Pamerkan Karyamu!
+          </h3>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            Gunakan alur 5 fase inkuiri Kurikulum Merdeka (Orientasi Masalah, Pemilihan AI, Co-Creation Prompt, Kajian Kritis, dan Etika). Publikasikan karyamu ke Galeri Kelas dan dapatkan penilaian dari rekan sebaya (+100 XP & Lencana PBL Innovator).
+          </p>
+        </div>
+        <button
+          onClick={() => setActiveView('pbl')}
+          className="flex items-center gap-2 rounded-xl bg-cyan-500 px-5 py-2.5 text-xs font-bold text-slate-950 hover:bg-cyan-400 transition whitespace-nowrap shadow-md shadow-cyan-500/20"
+        >
+          <span>Buka Studio PBL</span>
+          <ArrowRight className="h-4 w-4" />
+        </button>
       </div>
 
       {/* Badges Shelf */}

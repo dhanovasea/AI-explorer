@@ -66,7 +66,7 @@ export const CertificateModal: React.FC = () => {
           </div>
 
           <p className="text-xs text-slate-300 print:text-slate-800 max-w-lg mx-auto leading-relaxed">
-            Telah berhasil menyelesaikan eksplorasi konsep dasar Generative AI, pemahaman modalitas konten, simulasi token arsitektur AI, laboratorium prompt engineering, serta penerapan etika dan keamanan kecerdasan buatan.
+            Telah berhasil menyelesaikan eksplorasi konsep dasar Generative AI, pemahaman modalitas konten, simulasi token arsitektur AI, laboratorium prompt engineering, proyek inovasi Problem-Based Learning (PBL), serta penerapan etika dan keamanan kecerdasan buatan.
           </p>
 
           {/* Achievement Summary Pills */}

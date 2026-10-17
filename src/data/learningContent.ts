@@ -6,7 +6,8 @@ import {
   EthicsScenario, 
   QuizQuestion, 
   GlossaryItem, 
-  Badge 
+  Badge,
+  PBLProject
 } from '../types';
 
 export const BADGES_DATA: Badge[] = [
@@ -41,6 +42,14 @@ export const BADGES_DATA: Badge[] = [
     iconName: 'Award',
     unlocked: false,
     criteria: 'Selesaikan Kuis Tantangan Modul 6 dengan nilai minimal 80%.'
+  },
+  {
+    id: 'pbl-innovator',
+    title: 'PBL Innovator',
+    description: 'Menyelesaikan proyek pemecahan masalah nyata dengan AI dan mempublikasikannya.',
+    iconName: 'Rocket',
+    unlocked: false,
+    criteria: 'Selesaikan 5 fase PBL dan publikasikan karyamu ke Galeri Publikasi Kelas.'
   }
 ];
 
@@ -793,3 +802,155 @@ export const GLOSSARY_ITEMS: GlossaryItem[] = [
     example: 'Menulis keterangan: "Infografis dikonsep penulis dan divisualisasikan dengan bantuan AI Generatif."'
   }
 ];
+
+export interface PBLProblemTemplate {
+  id: string;
+  theme: string;
+  title: string;
+  statement: string;
+  defaultAudience: string;
+  suggestedModality: 'text' | 'image' | 'code' | 'infographic' | 'multimodal';
+  defaultRole: string;
+  defaultTask: string;
+  defaultContext: string;
+  defaultFormat: string;
+  sampleAiSnippet: string;
+  sampleCriticalReview: string;
+  sampleEthicalDisclosure: string;
+}
+
+export const PBL_PROBLEM_TEMPLATES: PBLProblemTemplate[] = [
+  {
+    id: 'pbl-sampah-plastik',
+    theme: 'Lingkungan Sekolah',
+    title: 'Gerakan Zero-Plastic Kantin SMA',
+    statement: 'Timbunan sampah plastik sekali pakai (bungkus makanan dan sedotan) di kantin sekolah mencapai lebih dari 15 kg per hari karena minimnya kesadaran memilah dan membawa wadah makan sendiri.',
+    defaultAudience: 'Warga sekolah: 850 siswa, guru, dan pengelola kantin SMA.',
+    suggestedModality: 'infographic',
+    defaultRole: 'Bertindaklah sebagai aktivis lingkungan muda dan komunikator sains sekolah.',
+    defaultTask: 'Susun konsep kampanye edukasi visual "Bawa Tumbler & Kotak Makan" untuk dipasang di meja kantin.',
+    defaultContext: 'Untuk siswa SMA kelas 10 yang gemar nongkrong di kantin tapi sering lupa membuang sampah pada tempatnya.',
+    defaultFormat: '3 slogan persuasif, 1 kalkulasi penghematan plastik per bulan, dan 1 ide tantangan berhadiah point OSIS.',
+    sampleAiSnippet: `📢 **Kampanye "Kantin Keren Tanpa Sampah":**
+1. **Slogan 1:** "Gaya Elit, Bawa Tumbler Jangan Pelit!" 💧
+2. **Slogan 2:** "Makan Kenyang, Meja Bersih, Bumi Senang!" 🍱
+3. **Slogan 3:** "Pahlawan Bumi Bawa Wadah Sendiri."
+📊 **Kalkulasi Siswa:** Jika 800 siswa membawa wadah sendiri setiap istirahat, kita menghemat 16.000 kantong plastik per bulan!
+🎁 **Tantangan Stamp Card:** Tukar 10 cap bawa kotak makan dengan voucher es teh gratis dari kantin!`,
+    sampleCriticalReview: 'Solusi ide stamp card sangat aplikatif. Namun kami memverifikasi bahwa pengelola kantin perlu insentif khusus agar tidak keberatan melayani wadah pribadi siswa yang berbeda-beda ukurannya.',
+    sampleEthicalDisclosure: 'Draf konsep slogan digenerasi dengan bantuan Generative AI. Data kalkulasi siswa diverifikasi langsung melalui survei nyata tim di kantin sekolah pada 14 Oktober.'
+  },
+  {
+    id: 'pbl-literasi-hoaks',
+    theme: 'Literasi Digital',
+    title: 'Panduan Deteksi Deepfake & Halusinasi AI',
+    statement: 'Banyak siswa kelas 10 mudah membagikan tangkapan layar chat rekayasa dan video pidato deepfake di grup WhatsApp kelas tanpa memeriksa kebenarannya, memicu kegaduhan antar-siswa.',
+    defaultAudience: 'Siswa SMA pengguna aktif media sosial TikTok dan Instagram.',
+    suggestedModality: 'text',
+    defaultRole: 'Bertindaklah sebagai jurnalis cek fakta dan edukator literasi digital remaja.',
+    defaultTask: 'Buat checklist praktis 4 langkah mudah mendeteksi konten hoaks hasil manipulasi AI dan teks halusinasi.',
+    defaultContext: 'Ditujukan bagi siswa SMA kelas 10 agar bisa membedakan fakta orisinal dengan rekayasa generatif dalam waktu 30 detik.',
+    defaultFormat: 'Gunakan akronim yang mudah dihafal (misal CEK-A), 1 tips verifikasi gambar, dan 1 hotline aduan sekolah.',
+    sampleAiSnippet: `🛡️ **Metode "S-A-R-I" Cek Konten AI (30 Detik):**
+- **S (Sumber Primer):** Apakah berita ini ada di situs berita resmi nasional atau arsip negara?
+- **A (Anatomi Visual):** Perhatikan bayangan, kedipan mata, jumlah jari, dan tekstur gigi pada video/foto.
+- **R (Reaksi Emosi):** Jika konten membuatmu seketika sangat marah atau panik, waspadalah! Hoaks dirancang memicu emosi impulsif.
+- **I (Investigasi Ulang):** Lakukan pencarian gambar terbalik (Google Lens / Reverse Search).`,
+    sampleCriticalReview: 'Metode SARI sangat mudah diingat oleh rekan sekelas. Kami melengkapi checklist ini dengan panduan praktis menggunakan Google Reverse Image Search dari ponsel.',
+    sampleEthicalDisclosure: 'Struktur singkatan dirancang bersama AI, materi contoh kasus diambil dari kasus berita hoaks nyata yang telah dibantah oleh Mafindo (Masyarakat Anti Fitnah Indonesia).'
+  },
+  {
+    id: 'pbl-tutor-sebaya',
+    theme: 'Edukasi Sebaya',
+    title: 'Kartu Konsep Visual: Memahami Stoikiometri Kimia',
+    statement: 'Lebih dari 60% siswa kelas 10 merasa materi Konsep Mol dan Stoikiometri Kimia sangat abstrak dan sulit dibayangkan karena banyaknya rumus perbandingan.',
+    defaultAudience: 'Teman sekelas yang sedang mempersiapkan asesmen sumatif Kimia.',
+    suggestedModality: 'multimodal',
+    defaultRole: 'Bertindaklah sebagai tutor sebaya Kimia SMA yang kreatif dan menggunakan bahasa gaul santun.',
+    defaultTask: 'Jelaskan konsep bilangan Avogadro dan Konsep Mol menggunakan analogi belanja barang grosir di minimarket.',
+    defaultContext: 'Siswa kelas 10 yang hafal rumus tetapi bingung apa makna fisik dari angka $6,02 \\times 10^{23}$.',
+    defaultFormat: '1 analogi belanja, 1 peta alur gram ke mol, dan 1 jembatan keledai untuk mengingat rumus.',
+    sampleAiSnippet: `🧪 **Konsep Mol: Belanja Grosir Partikel Atom!**
+Bayangkan kamu pergi ke toko kue:
+- 1 lusin telur = 12 butir telur.
+- 1 kodi baju = 20 helai baju.
+- Nah, karena atom itu super mini dan tidak bisa dihitung satu per satu, para kimiawan membuat satuan grosir sendiri: **1 Mol = $6,02 \\times 10^{23}$ butir partikel!**
+Jadi, 1 mol atom karbon = satu "bungkus grosir" berisi $6,02 \\times 10^{23}$ atom karbon yang beratnya tepat 12 gram!
+✨ **Jembatan Keledai:** Mol itu "Jembatan Penyeberangan" antara dunia mikro (partikel tak kasat mata) dan dunia makro (gram yang bisa kita timbang).`,
+    sampleCriticalReview: 'Analogi lusin telur terbukti membuat 8 dari 10 teman kelompok langsung memahami makna fisik mol tanpa takut dengan notasi eksponen ilmiah.',
+    sampleEthicalDisclosure: 'Penjelasan analogi disempurnakan dengan bimbingan Guru Kimia SMA dan disintesis menggunakan bantuan LLM untuk gaya bahasa yang santai.'
+  }
+];
+
+export const SAMPLE_PBL_PROJECTS: PBLProject[] = [
+  {
+    id: 'pbl-proj-1',
+    title: 'EcoKantin: Visual Infografis Pengurangan Sampah Plastik SMA',
+    problemTheme: 'Lingkungan Sekolah',
+    problemStatement: 'Timbunan sampah plastik di kantin sekolah mencapai 15 kg per hari karena kebiasaan membeli minuman kemasan saset dan kantong kresek.',
+    targetCommunity: 'Siswa dan pedagang kantin SMA Nusantara Mandiri',
+    aiModality: 'infographic',
+    promptStrategy: {
+      role: 'Aktivis lingkungan muda SMA yang kreatif',
+      task: 'Rancang naskah poster infografis edukasi dampak mikroplastik bagi kesehatan remaja',
+      context: 'Untuk dipasang di dinding kantin sekolah SMA kelas 10',
+      format: '3 poin bahaya mikroplastik, 1 solusi membawa tumbler, dan 1 ajakan aksi konkret'
+    },
+    aiOutputSnippet: '1. Mikroplastik masuk ke rantai makanan manusia.\n2. Butuh 450 tahun bagi satu botol plastik untuk terurai di tanah.\n3. Aksi Siswa Keren: Isi ulang air gratis di dispenser sekolah dan selamatkan 200 botol per semester!',
+    studentCriticalReview: 'Kelompok kami memverifikasi data waktu penguraian plastik dari jurnal LIPI. Kami juga menambahkan informasi letak titik dispenser air minum sekolah di lantai 1 dan 2.',
+    ethicalDisclosure: 'Draf naskah dirancang menggunakan Generative AI, foto dan desain akhir dikerjakan secara orisinal oleh tim siswa dengan Canva.',
+    author: 'Kelompok 3 (Dina, Budi, & Fikri)',
+    teamMembers: 'Dina (Ketua), Budi (Peneliti Data), Fikri (Desain Grafis)',
+    likes: 18,
+    reviews: [
+      {
+        id: 'rev-1',
+        author: 'Rifki - Kelas 10-B',
+        comment: 'Sangat inspiratif! Sekarang saya selalu bawa tumbler ke sekolah karena tahu dispenser lantai 2 buka terus.',
+        rating: 5,
+        createdAt: '15 Okt 2026'
+      },
+      {
+        id: 'rev-2',
+        author: 'Ibu Ratna (Guru Pembina OSIS)',
+        comment: 'Proyek PBL yang luar biasa solutif. Transparansi atribusi AI juga dicantumkan dengan sangat rapi dan etis!',
+        rating: 5,
+        createdAt: '16 Okt 2026'
+      }
+    ],
+    createdAt: '15 Okt 2026',
+    isStudentSubmission: false
+  },
+  {
+    id: 'pbl-proj-2',
+    title: 'LiterasiCerdas: Modul Mini Deteksi Deepfake & Rekayasa Media',
+    problemTheme: 'Literasi Digital',
+    problemStatement: 'Penyebaran video deepfake di media sosial sering memicu perundungan dan kesalahpahaman antarsiswa di sekolah.',
+    targetCommunity: 'Seluruh siswa SMA kelas 10 dan 11',
+    aiModality: 'text',
+    promptStrategy: {
+      role: 'Edukator literasi digital remaja dan jurnalis media',
+      task: 'Susun panduan ringkas 4 langkah mendeteksi manipulasi visual dan suara palsu',
+      context: 'Untuk dibagikan via buletin digital OSIS',
+      format: 'Checklist 4 langkah (Metode SARI) dengan bahasa gaul santun'
+    },
+    aiOutputSnippet: 'Metode SARI Cek Media: Sumber primer, Anatomi wajah & gerak, Reaksi emosi, Investigasi pencarian gambar terbalik.',
+    studentCriticalReview: 'Kami menguji checklist ini pada 20 rekan sekelas dan 90% berhasil mendeteksi video rekayasa yang kami jadikan studi kasus simulasi.',
+    ethicalDisclosure: 'Konsep disusun kolaboratif dengan AI, diuji coba nyata di kelas Informatika.',
+    author: 'Ahmad Fauzan & Tim OSIS',
+    teamMembers: 'Ahmad Fauzan, Sarah Amalia',
+    likes: 24,
+    reviews: [
+      {
+        id: 'rev-3',
+        author: 'Pak Hendra (Guru Informatika)',
+        comment: 'Penerapan berpikir komputasional dan etika digital yang sangat matang untuk siswa kelas 10.',
+        rating: 5,
+        createdAt: '16 Okt 2026'
+      }
+    ],
+    createdAt: '16 Okt 2026',
+    isStudentSubmission: false
+  }
+];
+

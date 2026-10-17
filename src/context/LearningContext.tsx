@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ModuleId, BadgeId, Badge, StudentProfile } from '../types';
-import { BADGES_DATA } from '../data/learningContent';
+import { ModuleId, BadgeId, Badge, StudentProfile, PBLProject, PeerReview } from '../types';
+import { BADGES_DATA, SAMPLE_PBL_PROJECTS } from '../data/learningContent';
 
 interface ToastMessage {
   id: string;
@@ -27,9 +27,16 @@ interface LearningContextType {
   setOpenGlossary: (open: boolean) => void;
   openAbout: boolean;
   setOpenAbout: (open: boolean) => void;
+
+  // PBL & Publication
+  pblProjects: PBLProject[];
+  addPBLProject: (project: Omit<PBLProject, 'id' | 'likes' | 'reviews' | 'createdAt'>) => string;
+  likePBLProject: (projectId: string) => void;
+  addPeerReview: (projectId: string, review: Omit<PeerReview, 'id' | 'createdAt'>) => void;
 }
 
 const STORAGE_KEY = 'genai_explorer_student_profile_v1';
+const PBL_STORAGE_KEY = 'genai_explorer_pbl_projects_v1';
 
 const defaultProfile: StudentProfile = {
   name: 'Siswa SMA Kelas 10',
@@ -55,6 +62,21 @@ export const LearningProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return defaultProfile;
   });
 
+  const [pblProjects, setPblProjects] = useState<PBLProject[]>(() => {
+    try {
+      const saved = localStorage.getItem(PBL_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch {
+      // fallback
+    }
+    return SAMPLE_PBL_PROJECTS;
+  });
+
   const [activeView, setActiveView] = useState<string>('dashboard');
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [openCertificate, setOpenCertificate] = useState<boolean>(false);
@@ -68,6 +90,14 @@ export const LearningProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       console.error('Failed to save to localStorage', e);
     }
   }, [profile]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(PBL_STORAGE_KEY, JSON.stringify(pblProjects));
+    } catch (e) {
+      console.error('Failed to save PBL to localStorage', e);
+    }
+  }, [pblProjects]);
 
   const addToast = (text: string, xp?: number) => {
     const id = Date.now().toString() + Math.random().toString();
@@ -156,9 +186,73 @@ export const LearningProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     });
   };
 
+  const addPBLProject = (projectData: Omit<PBLProject, 'id' | 'likes' | 'reviews' | 'createdAt'>): string => {
+    const newId = `pbl-proj-${Date.now()}`;
+    const dateFormatted = new Intl.DateTimeFormat('id-ID', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    }).format(new Date());
+
+    const newProject: PBLProject = {
+      ...projectData,
+      id: newId,
+      likes: 1,
+      reviews: [],
+      createdAt: dateFormatted,
+      isStudentSubmission: true
+    };
+
+    setPblProjects((prev) => [newProject, ...prev]);
+    addXP(100, `Karya PBL "${newProject.title}" berhasil dipublikasikan!`);
+    unlockBadge('pbl-innovator');
+
+    return newId;
+  };
+
+  const likePBLProject = (projectId: string) => {
+    setPblProjects((prev) =>
+      prev.map((proj) => {
+        if (proj.id === projectId) {
+          return { ...proj, likes: proj.likes + 1 };
+        }
+        return proj;
+      })
+    );
+    addToast('Apresiasi berhasil diberikan ke proyek!');
+  };
+
+  const addPeerReview = (projectId: string, review: Omit<PeerReview, 'id' | 'createdAt'>) => {
+    const newReview: PeerReview = {
+      ...review,
+      id: `rev-${Date.now()}`,
+      createdAt: new Intl.DateTimeFormat('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }).format(new Date())
+    };
+
+    setPblProjects((prev) =>
+      prev.map((proj) => {
+        if (proj.id === projectId) {
+          return {
+            ...proj,
+            reviews: [...proj.reviews, newReview]
+          };
+        }
+        return proj;
+      })
+    );
+
+    addXP(20, 'Ulasan sejawat berhasil ditambahkan!');
+  };
+
   const resetProgress = () => {
     setProfile(defaultProfile);
+    setPblProjects(SAMPLE_PBL_PROJECTS);
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(PBL_STORAGE_KEY);
     addToast('Progres pembelajaran berhasil di-reset.');
     setActiveView('dashboard');
   };
@@ -189,6 +283,10 @@ export const LearningProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setOpenGlossary,
         openAbout,
         setOpenAbout,
+        pblProjects,
+        addPBLProject,
+        likePBLProject,
+        addPeerReview
       }}
     >
       {children}

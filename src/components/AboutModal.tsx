@@ -56,6 +56,14 @@ export const AboutModal: React.FC = () => {
                 <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0 mt-0.5" />
                 <span>Menyusun prompt berstruktur (Role, Task, Context, Format).</span>
               </div>
+              <div className="flex items-start gap-2 bg-slate-950/60 p-2.5 rounded-lg border border-cyan-500/30">
+                <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0 mt-0.5" />
+                <span>Memecahkan masalah nyata sekolah dengan 5 fase inkuiri PBL.</span>
+              </div>
+              <div className="flex items-start gap-2 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800">
+                <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0 mt-0.5" />
+                <span>Mempublikasikan karya terverifikasi & memberikan peer review etis.</span>
+              </div>
             </div>
           </div>
 

@@ -8,6 +8,7 @@ import { Module3InsideAI } from './components/modules/Module3InsideAI';
 import { Module4PromptLab } from './components/modules/Module4PromptLab';
 import { Module5Ethics } from './components/modules/Module5Ethics';
 import { Module6Quiz } from './components/modules/Module6Quiz';
+import { PBLActivity } from './components/modules/PBLActivity';
 import { GlossaryModal } from './components/GlossaryModal';
 import { AboutModal } from './components/AboutModal';
 import { CertificateModal } from './components/CertificateModal';
@@ -33,6 +34,8 @@ const MainContent: React.FC = () => {
         return <Module5Ethics />;
       case 'module-6':
         return <Module6Quiz />;
+      case 'pbl':
+        return <PBLActivity />;
       default:
         return <Dashboard />;
     }

@@ -4,7 +4,35 @@ export type BadgeId =
   | 'ai-beginner' 
   | 'prompt-explorer' 
   | 'ai-safety-guardian' 
-  | 'generative-ai-master';
+  | 'generative-ai-master'
+  | 'pbl-innovator';
+
+export interface PeerReview {
+  id: string;
+  author: string;
+  comment: string;
+  rating: number;
+  createdAt: string;
+}
+
+export interface PBLProject {
+  id: string;
+  title: string;
+  problemTheme: string;
+  problemStatement: string;
+  targetCommunity: string;
+  aiModality: 'text' | 'image' | 'code' | 'infographic' | 'multimodal';
+  promptStrategy: PromptComponent;
+  aiOutputSnippet: string;
+  studentCriticalReview: string;
+  ethicalDisclosure: string;
+  author: string;
+  teamMembers?: string;
+  likes: number;
+  reviews: PeerReview[];
+  createdAt: string;
+  isStudentSubmission?: boolean;
+}
 
 export interface Badge {
   id: BadgeId;
